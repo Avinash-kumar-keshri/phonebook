@@ -7,24 +7,17 @@
                 <button class="delete" aria-label="close" @click="close"></button>
             </header>
             <section class="modal-card-body">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                   <p>{{list.name}}</p>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Phone</label>
-                    <div class="control">
-                        <p>{{list.phone}}</p>
-                    </div>
-                </div><div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <p>{{list.email}}</p>
-                </div>
+                <li class="panel-block">
+                    <label class="column is-2">Name</label>{{list.name}}
+                </li>
 
-            </div>
+                <li class="panel-block">
+                    <label class="column is-2">Phone</label>{{list.phone}}
+                </li>
+
+                <li class="panel-block">
+                    <label class="column is-2">Email</label>{{list.email}}
+                </li>
 
             </section>
             <footer class="modal-card-foot">
