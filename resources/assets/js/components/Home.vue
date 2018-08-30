@@ -3,7 +3,7 @@
         <nav class="panel">
             <p class="panel-heading">
                 Vuejs Phonebook
-                <button class="button is-primary is-outlined is-pulled-right" @click="openAdd">
+                <button class="button is-primary  is-pulled-right" @click="openAdd">
                     Add New
                 </button>
             </p>
@@ -17,9 +17,9 @@
                 </p>
             </div>
 
-            <a class="panel-block">
+            <a class="panel-block" v-for="(item,key) in lists">
             <span class="column is-9">
-              marksheet
+              {{item.name}}
             </span>
 
                 <span class="panel-icon column is-1">
@@ -31,32 +31,47 @@
             </span>
 
                 <span class="panel-icon column is-1">
-              <i class="has-text-primary fa fa-eye" aria-hidden="true"></i>
+              <i class="has-text-primary fa fa-eye" aria-hidden="true" @click="openShow(key)"></i>
             </span>
             </a>
 
         </nav>
 
         <Add v-bind:openModel="addActive" @closeRequest="close"></Add>
+
+        <Show v-bind:openModel="showActive" @closeRequest="close"></Show>
     </div>
 
 </template>
 
 <script>
   let Add =require('./Add.vue');
+  let Show =require('./Show.vue');
     export default {
       data(){
         return{
-          addActive:''
+          addActive:'',
+          showActive:'',
+          lists:{},
+          errors:{}
         }
       },
-      components:{Add},
+      mounted(){
+        axios.post('/getData').then((response) =>this.lists=response.data)
+        .catch((error) =>this.errors=error.response.data.errors )
+      },
+      components:{Add,Show},
       methods:{
        openAdd:function(){
           this.addActive ='is-active'
   },
+        openShow:function(key){
+         this.$children[1].list=this.lists[key];
+          this.showActive ='is-active'
+        },
         close(){
-         this.addActive=''
+         this.addActive='',
+           this.showActive=''
         }
       }
     }
