@@ -12,13 +12,14 @@ let Myheader = require('./components/Myheader.vue');
 let Myfooter = require('./components/Myfooter.vue');
 let Home = require('./components/Home.vue');
 let About = require('./components/About.vue');
+
 const routes = [
   { path: '/home', component: Home },
   { path: '/about', component: About }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+ 
   routes
 })
 
