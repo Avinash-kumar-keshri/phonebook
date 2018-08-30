@@ -49,7 +49,6 @@
           this.$emit('closeRequest')
         },
         save(){
-
           axios.post('/phonebook', this.$data.list, {
           }).then(
             response => console.log(response.data)
