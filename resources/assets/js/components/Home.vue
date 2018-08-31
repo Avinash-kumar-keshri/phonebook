@@ -23,7 +23,7 @@
             </span>
 
                 <span class="panel-icon column is-1">
-              <i class="has-text-danger fa fa-trash" aria-hidden="true"></i>
+              <i class="has-text-danger fa fa-trash" aria-hidden="true" @click="del(key,item.id)"></i>
             </span>
 
                 <span class="panel-icon column is-1">
@@ -82,7 +82,14 @@
          this.addActive='',
            this.showActive='',
            this.updateActive=''
-        }
+        },
+        del:function(key,id){
+          /*console.log(`${key},${id}`)*/
+          if(confirm('Are you sure ?')){
+            axios.delete(`/phonebook/${id}`).then((response) =>console.log('deleted'))
+            .catch((error) =>this.errors=error.response.data.errors )
+          }
+        },
       }
     }
 </script>
