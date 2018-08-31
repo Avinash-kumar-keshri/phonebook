@@ -27,7 +27,7 @@
             </span>
 
                 <span class="panel-icon column is-1">
-              <i class="has-text-info fa fa-edit" aria-hidden="true"></i>
+              <i class="has-text-info fa fa-edit" aria-hidden="true" @click="openUpdate(key)"></i>
             </span>
 
                 <span class="panel-icon column is-1">
@@ -40,6 +40,8 @@
         <Add v-bind:openModel="addActive" @closeRequest="close"></Add>
 
         <Show v-bind:openModel="showActive" @closeRequest="close"></Show>
+
+        <Update v-bind:openModel="updateActive" @closeRequest="close"></Update>
     </div>
 
 </template>
@@ -47,11 +49,14 @@
 <script>
   let Add =require('./Add.vue');
   let Show =require('./Show.vue');
+  let Update =require('./Update.vue');
+
     export default {
       data(){
         return{
           addActive:'',
           showActive:'',
+          updateActive:'',
           lists:{},
           errors:{}
         }
@@ -60,7 +65,7 @@
         axios.post('/getData').then((response) =>this.lists=response.data)
         .catch((error) =>this.errors=error.response.data.errors )
       },
-      components:{Add,Show},
+      components:{Add,Show,Update},
       methods:{
        openAdd:function(){
           this.addActive ='is-active'
@@ -69,9 +74,14 @@
          this.$children[1].list=this.lists[key];
           this.showActive ='is-active'
         },
+        openUpdate:function(key){
+          this.$children[2].list=this.lists[key];
+          this.updateActive ='is-active'
+        },
         close(){
          this.addActive='',
-           this.showActive=''
+           this.showActive='',
+           this.updateActive=''
         }
       }
     }
