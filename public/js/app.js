@@ -46313,6 +46313,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var Add = __webpack_require__(46);
 var Show = __webpack_require__(49);
@@ -46361,7 +46375,8 @@ var Update = __webpack_require__(52);
       /*console.log(`${key},${id}`)*/
       if (confirm('Are you sure ?')) {
         axios.delete('/phonebook/' + id).then(function (response) {
-          return console.log('deleted');
+          _this2.lists.pop(_this2.$data.lists);
+          _this2.$children[0].list = '';
         }).catch(function (error) {
           return _this2.errors = error.response.data.errors;
         });
@@ -46482,7 +46497,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       axios.post('/phonebook', this.$data.list).then(function (response) {
-        return _this.close();
+        _this.close();
+        _this.$parent.lists.push(response.data);
       }).catch(function (error) {
         return _this.errors = error.response.data.errors;
       });
@@ -47102,8 +47118,19 @@ var render = function() {
           _vm._v(" "),
           _vm._l(_vm.lists, function(item, key) {
             return _c("a", { staticClass: "panel-block" }, [
-              _c("span", { staticClass: "column is-9" }, [
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+              _c("span", { staticClass: "column is-3" }, [
+                _c("strong", [_vm._v("Name:")]),
+                _vm._v(" " + _vm._s(item.name) + "\n                ")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "column is-3" }, [
+                _c("strong", [_vm._v("Phone: ")]),
+                _vm._v(" " + _vm._s(item.phone) + "\n                   ")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "column is-3" }, [
+                _c("strong", [_vm._v("Email:")]),
+                _vm._v(" " + _vm._s(item.email) + "\n                    ")
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "panel-icon column is-1" }, [
@@ -47179,7 +47206,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("span", { staticClass: "icon is-small is-left" }, [
           _c("i", {
-            staticClass: "fas fa-search",
+            staticClass: "fa fa-search",
             attrs: { "aria-hidden": "true" }
           })
         ])

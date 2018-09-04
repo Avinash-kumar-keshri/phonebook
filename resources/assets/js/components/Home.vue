@@ -12,28 +12,42 @@
                 <p class="control has-icons-left">
                     <input class="input is-small" type="text" placeholder="search">
                     <span class="icon is-small is-left">
-          <i class="fas fa-search" aria-hidden="true"></i>
+          <i class="fa fa-search" aria-hidden="true"></i>
                 </span>
                 </p>
             </div>
 
-            <a class="panel-block" v-for="(item,key) in lists">
-            <span class="column is-9">
-              {{item.name}}
-            </span>
+                <a class="panel-block" v-for="(item,key) in lists">
 
-                <span class="panel-icon column is-1">
+
+                    <span class="column is-3">
+                        <strong>Name:</strong> {{item.name}}
+                    </span>
+
+                        <span class="column is-3">
+                        <strong>Phone: </strong> {{item.phone}}
+                       </span>
+
+                        <span class="column is-3">
+                            <strong>Email:</strong> {{item.email}}
+                        </span>
+
+
+
+                    <span class="panel-icon column is-1">
               <i class="has-text-danger fa fa-trash" aria-hidden="true" @click="del(key,item.id)"></i>
             </span>
 
-                <span class="panel-icon column is-1">
+                    <span class="panel-icon column is-1">
               <i class="has-text-info fa fa-edit" aria-hidden="true" @click="openUpdate(key)"></i>
             </span>
 
-                <span class="panel-icon column is-1">
+                    <span class="panel-icon column is-1">
               <i class="has-text-primary fa fa-eye" aria-hidden="true" @click="openShow(key)"></i>
             </span>
-            </a>
+                </a>
+
+
 
         </nav>
 
@@ -86,9 +100,14 @@
         del:function(key,id){
           /*console.log(`${key},${id}`)*/
           if(confirm('Are you sure ?')){
-            axios.delete(`/phonebook/${id}`).then((response) =>console.log('deleted'))
+            axios.delete(`/phonebook/${id}`).then((response) =>{
+               this.lists.pop(this.$data.lists)
+               this.$children[0].list=''
+            })
+
             .catch((error) =>this.errors=error.response.data.errors )
           }
+
         },
       }
     }
